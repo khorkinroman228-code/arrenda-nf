@@ -24,7 +24,7 @@ MANAGER_USERNAME = "@michaelwez"
 SUPPORT_USERNAME = "@michaelwez"
 STATS_CONTACT = "@michaelwez"
 ADMIN_IDS = [8861315128]
-DB_PATH = "arrenda_rent.db"
+DB_PATH = "/app/data/arrenda_rent.db"
 
 SUPPORT_PHOTO = "https://i.imgur.com/F6UddrX.jpeg"
 BALANCE_PHOTO = "https://i.imgur.com/kumwHxs.jpeg"
@@ -90,6 +90,8 @@ def get_currency(payment_method, user=None, region=None):
 
 # ============ БАЗА ДАННЫХ ============
 async def init_db():
+    import os
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     async with aiosqlite.connect(DB_PATH) as db:
         await db.execute("""
             CREATE TABLE IF NOT EXISTS users (
